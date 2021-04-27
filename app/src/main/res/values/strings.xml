@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Smart Recognition</string>
+    <string name="recognize">Recognize</string>
+    <string name="text">Text</string>
+    <string name="ppe">PPE Kit</string>
+    <string name="objects">Objects</string>
+    <string name="welcome">Welcome! Please choose recognition category</string>
+</resources>
