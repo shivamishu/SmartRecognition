@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">Smart Recognition</string>
     <string name="recognize">Recognize</string>
+    <string name="reset">Reset</string>
     <string name="text">Text</string>
     <string name="ppe">PPE Kit</string>
     <string name="objects">Objects</string>
     <string name="welcome">Welcome! Please choose recognition category</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
+    <string name="home">Home</string>
+    <string name="welcomeAbout">Welcome to Smart Recognition!</string>
+    <string name="aboutmsg">This app helps you detect different types Objects, Texts and PPE Kit from the image you upload.</string>
+    <string name="aboutdev">Developed by: Shivam Shrivastav</string>
+    <string name="results">Results Found</string>
+    <string name="email">Email</string>
+    <string name="done">Done</string>
 </resources>

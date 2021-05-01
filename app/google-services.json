@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "3769930268",
+    "project_id": "smartrecognition",
+    "storage_bucket": "smartrecognition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3769930268:android:386eb6c82b0504218f05d9",
+        "android_client_info": {
+          "package_name": "com.sjsu.smartrecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3769930268-84a96keti6eecrh5569j0b048gdhjdhd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sjsu.smartrecognition",
+            "certificate_hash": "05cc29112efcd7495a72afe27f00dcd6f4dc554c"
+          }
+        },
+        {
+          "client_id": "3769930268-864903i2tq2c68ni64c6t0kr633udsjc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRTIvSlw6VPhwQ_-EUj4DpTh70u9RMTm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3769930268-864903i2tq2c68ni64c6t0kr633udsjc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
