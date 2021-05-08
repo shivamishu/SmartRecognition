@@ -1,11 +1,10 @@
-# SmartRecognition
-# CMPE277 Project 2
-## Smart Recognitions
+# Smart Recognition
  
+Smart Recognitons is an Android mobile application to detect Objects and Texts from Images.   
+It also displays the resultant image along with Bound Boxes drawn around the objects and texts detected in the image.   
+  
+  
 Author: Shivam Shrivastav  
-Smart Recognitons: An Android mobile application to detect Objects and Texts from Images.   
-It also displays the resultant image along with Bound Boxes drawn around the objects and texts detected in the image.
-
 ## Screenshots
 
 
