@@ -14,7 +14,8 @@
     <string name="welcomeAbout">Welcome to Smart Recognition!</string>
     <string name="aboutmsg">This app helps you detect different types Objects, Texts and PPE Kit from the image you upload.</string>
     <string name="aboutdev">Developed by: Shivam Shrivastav</string>
-    <string name="results">Results Found</string>
+    <string name="results">%1$s Detected</string>
     <string name="email">Email</string>
     <string name="done">Done</string>
+    <string name="result_image">Resultant Image</string>
 </resources>

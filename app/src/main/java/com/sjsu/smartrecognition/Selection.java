@@ -45,8 +45,8 @@ public class Selection extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private FragmentSelectionBinding binding;
     private String mode = "Objects";
-//    private String base64String;
-    private ImageURI imageURI;
+    //    private String base64String;
+    private ImageURI imageURI = new ImageURI();
     private static final int IMAGE_REQUEST_CODE = 0612;
 
     // TODO: Rename and change types of parameters
@@ -143,6 +143,15 @@ public class Selection extends Fragment {
         }
     }
 
+//    @Override
+//    public void onResume () {
+//        super.onResume();
+//        if(imageURI.getImageUri() != null){
+//            resetImage();
+//        }
+//
+//    }
+
     public Bitmap loadFromUri(Uri photoUri) {
         Bitmap image = null;
         try {
@@ -186,13 +195,25 @@ public class Selection extends Fragment {
 //        SelectionDirections.ActionSelectionToResult action =  SelectionDirections.actionSelectionToResult((String[]) resultObjects[0], (String[]) resultObjects[1]);
 //        action.setObjectLabelsArray((String[]) resultObjects[0]);
 //        action.setObjectsRatingArray((String[]) resultObjects[1]);
-        if(imageURI.getImageUri() != null){
+        if (imageURI.getImageUri() != null) {
             String userName = (String) MainActivity.getUserName();
-            SelectionDirections.ActionSelectionToResult action = SelectionDirections.actionSelectionToResult(imageURI, userName);
-            action.setImageUri(imageURI);
-            action.setUserName(userName);
-            Navigation.findNavController(view).navigate(action);
-        }else{
+            String title = getSelectedMode();
+            if (title.equals("Objects")) {
+                SelectionDirections.ActionSelectionToResult action = SelectionDirections.actionSelectionToResult(imageURI, userName, title);
+                action.setImageUri(imageURI);
+                action.setUserName(userName);
+                action.setTitle(title);
+                Navigation.findNavController(view).navigate(action);
+
+            } else {
+                SelectionDirections.ActionSelectionToTextResult action2 = SelectionDirections.actionSelectionToTextResult(imageURI, userName, title);
+                action2.setImageUri(imageURI);
+                action2.setUserName(userName);
+                action2.setTitle(title);
+                Navigation.findNavController(view).navigate(action2);
+            }
+
+        } else {
             Toast.makeText(requireActivity().getApplicationContext(), "Please upload photo to proceed", Toast.LENGTH_LONG).show();
         }
 
@@ -210,16 +231,16 @@ public class Selection extends Fragment {
     private String getSelectedMode() {
         int i = 0;
         String checked = "Objects";
-        while (i < 3) {
+        while (i < 2) {
             Chip chip = (Chip) binding.chipGroup.getChildAt(i);
             if (chip.isChecked()) {
                 switch (i) {
                     case 1:
                         checked = "Text";
                         break;
-                    case 2:
-                        checked = "PPE Kit";
-                        break;
+//                    case 2:
+//                        checked = "PPE Kit";
+//                        break;
                     default:
                         checked = "Objects";
                         break;
@@ -297,4 +318,5 @@ public class Selection extends Fragment {
         return new Object[]{resultLabels, resultRatings};
 
     }
+
 }

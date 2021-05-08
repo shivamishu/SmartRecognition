@@ -32,14 +32,11 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.sjsu.smartrecognition.Network.AWSObjectAPI;
-import com.sjsu.smartrecognition.Network.IAWSAPIService;
-import com.sjsu.smartrecognition.databinding.FragmentResultBinding;
+import com.sjsu.smartrecognition.Network.AWSTextAPI;
+import com.sjsu.smartrecognition.Network.IAWSAPITextService;
+import com.sjsu.smartrecognition.databinding.FragmentTextResultBinding;
 import com.sjsu.smartrecognition.model.BoundingBox;
 import com.sjsu.smartrecognition.model.ImageURI;
-import com.sjsu.smartrecognition.model.Instance;
-import com.sjsu.smartrecognition.model.Label;
-import com.sjsu.smartrecognition.model.ObjectResponse;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,16 +48,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import model.ResponseText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Result#newInstance} factory method to
+ * Use the {@link TextResult#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Result extends Fragment {
+public class TextResult extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,19 +68,20 @@ public class Result extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private FragmentResultBinding binding;
+
+    private FragmentTextResultBinding binding;
     private String fileName;
     private String title;
     private Bitmap bitmap;
-    private IAWSAPIService mAWSAPIService;
+    private IAWSAPITextService mAWSAPITextService;
     DecimalFormat df2 = new DecimalFormat("#.##");
-    ArrayList<Label> data = new ArrayList<>();
+    ArrayList<model.TextDetection> data = new ArrayList<>();
 
     static TransferUtility transferUtility;
     // A List of all transfers
     static List<TransferObserver> observers;
 
-    public Result() {
+    public TextResult() {
         // Required empty public constructor
     }
 
@@ -92,11 +91,11 @@ public class Result extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Result.
+     * @return A new instance of fragment TextResult.
      */
     // TODO: Rename and change types and number of parameters
-    public static Result newInstance(String param1, String param2) {
-        Result fragment = new Result();
+    public static TextResult newInstance(String param1, String param2) {
+        TextResult fragment = new TextResult();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -109,12 +108,12 @@ public class Result extends Fragment {
         super.onCreate(savedInstanceState);
         try {
             if (getArguments() != null) {
-                ImageURI imageUri = ResultArgs.fromBundle(getArguments()).getImageUri();
-                String user = ResultArgs.fromBundle(getArguments()).getUserName();
+                ImageURI imageUri = TextResultArgs.fromBundle(getArguments()).getImageUri();
+                String user = TextResultArgs.fromBundle(getArguments()).getUserName();
                 user = user.replaceAll("\\s+", "");
                 setFileName(user); // setting without extension. extension will be added in getBase64StringFromURI
                 Uri photoUri = imageUri.getImageUri();
-                String mode = ResultArgs.fromBundle(getArguments()).getTitle();
+                String mode = TextResultArgs.fromBundle(getArguments()).getTitle();
                 setTitle(mode);
                 executeImageComputations(photoUri);
                 mParam1 = getArguments().getString(ARG_PARAM1);
@@ -129,15 +128,14 @@ public class Result extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        binding = FragmentResultBinding.inflate(inflater, container, false);
+        binding = FragmentTextResultBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_result, container, false);
         String modeTitle = String.format(getString(R.string.results), getTitle());
-        binding.results.setText(modeTitle);
-        binding.progressBar.setVisibility(View.VISIBLE);
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        binding.progressBar2.setVisibility(View.VISIBLE);
+        binding.results3.setText(modeTitle);
+        binding.fab3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_result_to_selection);
             }
@@ -158,11 +156,11 @@ public class Result extends Fragment {
         }
     }
 
-    public class MainCardAdapter extends RecyclerView.Adapter<Result.MainCardViewHolder> {
-        private ArrayList<Label> dataList;
+    public class MainCardAdapter extends RecyclerView.Adapter<TextResult.MainCardViewHolder> {
+        private ArrayList<model.TextDetection> dataList;
         private Context context;
 
-        public MainCardAdapter(Context context, ArrayList<Label> dataList) {
+        public MainCardAdapter(Context context, ArrayList<model.TextDetection> dataList) {
             this.context = context;
             this.dataList = dataList;
         }
@@ -177,9 +175,10 @@ public class Result extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MainCardViewHolder holder, int position) {
-            Label item = dataList.get(position);
-            holder.titleView.setText(item.getName());
+            model.TextDetection item = dataList.get(position);
+            holder.titleView.setText(item.getDetectedText());
             holder.rateView.setText(df2.format(item.getConfidence()) + " %");
+
         }
 
         @Override
@@ -210,17 +209,12 @@ public class Result extends Fragment {
         Bitmap btm = getBitMapImage();
         int imageWidth = btm.getWidth();
         int imageHeight = btm.getHeight();
-        ArrayList<Label> labels = getData();
-        for (Label label : labels) {
-            List<Instance> instances = label.getInstances();
-            if (instances.size() > 0) {
-                for (Instance instance : instances) {
-                    if (instance.getConfidence() > 90) {
-                        BoundingBox boundBox = instance.getBoundingBox();
-                        drawBoundBox(getBitMapImage(), (Double) boundBox.getLeft(), (Double) boundBox.getTop(), (Double) boundBox.getWidth(), (Double) boundBox.getHeight(), imageHeight, imageWidth);
-                    }
-                }
-
+        ArrayList<model.TextDetection> texts = getData();
+        for (model.TextDetection text : texts) {
+            model.Geometry geometry = text.getGeometry();
+            if (geometry != null & text.getConfidence() > 90) {
+                BoundingBox boundBox = geometry.getBoundingBox();
+                drawBoundBox(getBitMapImage(), (Double) boundBox.getLeft(), (Double) boundBox.getTop(), (Double) boundBox.getWidth(), (Double) boundBox.getHeight(), imageHeight, imageWidth);
             }
         }
     }
@@ -303,7 +297,7 @@ public class Result extends Fragment {
             @Override
             public void onError(int id, Exception ex) {
                 // Handle errors
-                binding.progressBar.setVisibility(View.GONE);
+                binding.progressBar2.setVisibility(View.GONE);
                 Toast.makeText(requireActivity().getApplicationContext(), "An error occurred. Please upload the photo again", Toast.LENGTH_LONG).show();
             }
 
@@ -372,45 +366,46 @@ public class Result extends Fragment {
         this.title = title;
     }
 
+
     private void callAPI() {
-        mAWSAPIService = AWSObjectAPI.getAPIService();
+        mAWSAPITextService = AWSTextAPI.getAPIService();
         String imageFileName = getFileName();
         String recMode = getTitle().toUpperCase();
 
-        mAWSAPIService.recognize(imageFileName, recMode).enqueue(new Callback<ObjectResponse>() {
+        mAWSAPITextService.recognize(imageFileName, recMode).enqueue(new Callback<ResponseText>() {
             @Override
-            public void onResponse(Call<ObjectResponse> call, Response<ObjectResponse> response) {
+            public void onResponse(Call<ResponseText> call, Response<ResponseText> response) {
 
                 if (response.isSuccessful()) {
-                    handleResponse(response.body().getLabels());
-                    binding.progressBar.setVisibility(View.GONE);
+                    handleResponse(response.body().getTextDetections());
+                    binding.progressBar2.setVisibility(View.GONE);
                     Log.i("RESPONSE", "got results from API." + response.body().toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<ObjectResponse> call, Throwable t) {
-                binding.progressBar.setVisibility(View.GONE);
-                Log.e("ERROR", "Unable to submit post to API.");
+            public void onFailure(Call<ResponseText> call, Throwable t) {
+                binding.progressBar2.setVisibility(View.GONE);
+                Log.e("ERROR", "Error occurred calling API.");
             }
         });
         ;
     }
 
-    public void handleResponse(ArrayList<Label> response) {
+    public void handleResponse(ArrayList<model.TextDetection> response) {
         if (response != null) {
             setData(response);
             prepareCanvasDrawing();
-            binding.cardRecyclerView.setAdapter(new MainCardAdapter(requireActivity().getApplicationContext(), getData()));
+            binding.cardRecyclerView3.setAdapter(new MainCardAdapter(requireActivity().getApplicationContext(), getData()));
         }
-        binding.resultImageView.setImageBitmap(getBitMapImage());
+        binding.resultImageView3.setImageBitmap(getBitMapImage());
     }
 
-    public void setData(ArrayList<Label> labels) {
-        this.data = labels;
+    public void setData(ArrayList<model.TextDetection> texts) {
+        this.data = texts;
     }
 
-    public ArrayList<Label> getData() {
+    public ArrayList<model.TextDetection> getData() {
         return data;
     }
 
@@ -421,4 +416,5 @@ public class Result extends Fragment {
     public Bitmap getBitMapImage() {
         return bitmap;
     }
+
 }

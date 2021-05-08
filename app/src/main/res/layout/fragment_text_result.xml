@@ -3,10 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Result">
+    tools:context=".TextResult">
 
     <ScrollView
-        android:id="@+id/scrollViewId2"
+        android:id="@+id/scrollViewId3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg"
@@ -23,12 +23,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewWelcome2"
+                android:id="@+id/textViewWelcome3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_margin="5dp"
                 android:elevation="1dp"
                 android:text="@string/result_image"
                 android:textAlignment="center"
@@ -37,13 +35,13 @@
                 android:textStyle="bold" />
 
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/progressBar2"
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <ImageView
-                android:id="@+id/resultImageView"
+                android:id="@+id/resultImageView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -53,12 +51,10 @@
                 tools:srcCompat="@drawable/upload" />
 
             <TextView
-                android:id="@+id/results"
+                android:id="@+id/results3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
                 android:elevation="1dp"
                 android:text="@string/results"
                 android:textAlignment="center"
@@ -66,34 +62,34 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent">-->
+            <!--            <RelativeLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent">-->
 
 
-<!--                <Button-->
-<!--                    android:id="@+id/fab"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:layout_gravity="end|bottom"-->
-<!--                    android:layout_marginStart="20dp"-->
-<!--                    android:layout_marginTop="20dp"-->
-<!--                    android:layout_marginEnd="20dp"-->
-<!--                    android:layout_marginBottom="20dp"-->
-<!--                    android:text="@string/done" />-->
+            <!--                <Button-->
+            <!--                    android:id="@+id/fab"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_alignParentEnd="true"-->
+            <!--                    android:layout_alignParentBottom="true"-->
+            <!--                    android:layout_gravity="end|bottom"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:layout_marginTop="20dp"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:layout_marginBottom="20dp"-->
+            <!--                    android:text="@string/done" />-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/card_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:clipToPadding="true"
-                    android:padding="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-<!--            </RelativeLayout>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/card_recycler_view3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:clipToPadding="true"
+                android:padding="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <!--            </RelativeLayout>-->
 
             <!--            <TextView-->
             <!--                android:id="@+id/textViewWelcome2"-->
@@ -134,7 +130,7 @@
 
             <!--            </androidx.cardview.widget.CardView>-->
             <Button
-                android:id="@+id/fab"
+                android:id="@+id/fab3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

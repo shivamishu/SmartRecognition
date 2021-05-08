@@ -65,7 +65,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="CAR"
+                    android:tag="OBJECTS"
                     android:text="@string/objects"
                     app:chipIcon="@drawable/ic_baseline_center_focus_strong_24"
                     app:chipIconEnabled="true"
@@ -76,20 +76,20 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="BIKE"
+                    android:tag="TEXT"
                     android:text="@string/text"
                     app:chipIcon="@drawable/ic_baseline_translate_24"
                     app:chipIconEnabled="true" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/ppe"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tag="WALK"
-                    android:text="@string/ppe"
-                    app:chipIcon="@drawable/ic_baseline_medical_services_24"
-                    app:chipIconVisible="true" />
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/ppe"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:tag="PET"-->
+<!--                    android:text="@string/ppe"-->
+<!--                    app:chipIcon="@drawable/ic_baseline_medical_services_24"-->
+<!--                    app:chipIconVisible="true" />-->
 
             </com.google.android.material.chip.ChipGroup>
 

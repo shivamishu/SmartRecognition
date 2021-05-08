@@ -1,16 +1,12 @@
 package com.sjsu.smartrecognition.Network;
 
-import com.sjsu.smartrecognition.model.PostObject;
+import com.sjsu.smartrecognition.model.ObjectResponse;
 
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface IAWSAPIService {
-    @POST("/detectObject")
-    @FormUrlEncoded
-    Call<PostObject> sendPhoto(@Field("Base64String") String base64String,
-                               @Field("FileName") String fileName,
-                               @Field("MimeType") String mimeType);
+    @GET("/recognize")
+    Call<ObjectResponse> recognize(@Query("fileName") String fileName, @Query("mode") String mode);
 }

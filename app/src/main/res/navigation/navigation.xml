@@ -15,6 +15,9 @@
             app:destination="@id/result"
             app:enterAnim="@anim/fragment_close_enter"
             app:exitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_selection_to_textResult"
+            app:destination="@id/textResult" />
     </fragment>
     <fragment
         android:id="@+id/result"
@@ -24,8 +27,7 @@
         <action
             android:id="@+id/action_result_to_selection"
             app:destination="@id/selection"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popUpToInclusive="true" />
+            app:exitAnim="@anim/fragment_close_exit" />
         <argument
             android:name="imageUri"
             app:argType="com.sjsu.smartrecognition.model.ImageURI" />
@@ -33,10 +35,33 @@
             android:name="userName"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.sjsu.smartrecognition.About"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/textResult"
+        android:name="com.sjsu.smartrecognition.TextResult"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_text_result" >
+        <action
+            android:id="@+id/action_textResult_to_selection"
+            app:destination="@id/selection"
+            app:exitAnim="@anim/fragment_close_exit" />
+        <argument
+            android:name="imageUri"
+            app:argType="com.sjsu.smartrecognition.model.ImageURI" />
+        <argument
+            android:name="userName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>
