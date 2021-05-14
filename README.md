@@ -5,8 +5,6 @@ It also displays the resultant image along with Bound Boxes drawn around the obj
   
   
 Author: Shivam Shrivastav  
-## Screenshots
-
 
 
 ## Setup Required
@@ -25,4 +23,8 @@ BUCKET=xxxxxxxxxxxx
 
 
 ## Demo
-[Demo URL]()
+[Demo URL](https://drive.google.com/file/d/1SVVTw8cHnToVUmf2YkHBOE_QU7RMWhyY/view?usp=sharing)
+For detailed codebase, refer the below video:
+[Codebase Details URL](https://drive.google.com/file/d/1zXURCU_UA-NOvXatULOJrHe34TJ16HcY/view?usp=sharing)  
+  
+## Screenshots
